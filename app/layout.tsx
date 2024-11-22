@@ -2,6 +2,9 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
 import { Toaster } from "sonner"
+import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { cn } from "@/lib/utils"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -49,16 +52,32 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <meta name="theme-color" content="#000000" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          geistSans.variable,
+          geistMono.variable
+        )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative min-h-screen">
+            <div className="fixed top-4 right-4 z-50">
+              <ThemeToggle />
+            </div>
+            {children}
+          </div>
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>
