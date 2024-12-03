@@ -27,8 +27,8 @@ export default function ClientChat({ initialSuggestions }: ClientChatProps) {
   const filteredMessages = messages.filter((message) => message.content !== "");
 
   return (
-    <div className="flex min-h-screen w-full">
-      <div className="flex sm:my-auto h-[100dvh] sm:h-[600px] w-full max-w-3xl overflow-hidden rounded-none sm:rounded-lg shadow-none relative mx-auto">
+    <div className="flex h-[100dvh] w-full">
+      <div className="flex w-full max-w-3xl overflow-hidden rounded-none sm:rounded-lg shadow-none relative mx-auto">
         <Chat
           className="flex flex-col w-full"
           messages={filteredMessages}
